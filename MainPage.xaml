@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SQLiteEncrypted.MauiMaintenanceLog.Models"
+             x:Class="SQLiteEncrypted.MauiMaintenanceLog.MainPage"
+             BackgroundColor="{StaticResource PageBackground}"
+             Title="Encrypted Maintenance Log">
+  <Grid RowDefinitions="Auto,*">
+    <VerticalStackLayout BackgroundColor="{StaticResource Evergreen}" Padding="24,18" Spacing="3">
+      <Label Text="SQLITE.ENCRYPTED + .NET MAUI + EF CORE"
+             TextColor="#86D4C4" FontSize="11" FontAttributes="Bold" />
+      <Label Text="Encrypted Maintenance Log"
+             TextColor="White" FontSize="24" FontAttributes="Bold" />
+    </VerticalStackLayout>
+
+    <ScrollView x:Name="UnlockPanel" Grid.Row="1">
+      <Border Margin="24" Padding="22" MaximumWidthRequest="560"
+              HorizontalOptions="Center" VerticalOptions="Center"
+              BackgroundColor="White" Stroke="#DCE3DF" StrokeShape="RoundRectangle 16">
+        <VerticalStackLayout Spacing="14">
+          <Label Text="Unlock your records" FontSize="26" FontAttributes="Bold" />
+          <Label Text="Enter the SQLite.Encrypted activation key and the passphrase for this database. Neither value is saved by the sample."
+                 TextColor="{StaticResource Muted}" />
+          <Label Text="Activation key" FontAttributes="Bold" Margin="0,8,0,0" />
+          <Entry x:Name="ActivationKeyEntry" Placeholder="Activation key without the see- prefix" />
+          <Label Text="Database passphrase" FontAttributes="Bold" />
+          <Entry x:Name="DatabaseKeyEntry" Placeholder="Database passphrase" IsPassword="True" />
+          <Border x:Name="UnlockErrorBorder" IsVisible="False" Padding="12"
+                  BackgroundColor="#FFF1F0" Stroke="#E7A19B" StrokeShape="RoundRectangle 8">
+            <Label x:Name="UnlockErrorLabel" TextColor="#9F3128" />
+          </Border>
+          <Button x:Name="UnlockButton" Text="Open encrypted log"
+                  Style="{StaticResource PrimaryButton}" Clicked="UnlockClicked" />
+        </VerticalStackLayout>
+      </Border>
+    </ScrollView>
+
+    <Grid x:Name="Workspace" Grid.Row="1" IsVisible="False"
+          Padding="16" RowDefinitions="Auto,220,*" RowSpacing="12">
+      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+        <SearchBar x:Name="SearchBar" Placeholder="Search title, location, or notes"
+                   TextChanged="SearchChanged" />
+        <Button Grid.Column="1" Text="New" Style="{StaticResource PrimaryButton}"
+                Clicked="NewClicked" />
+      </Grid>
+
+      <CollectionView x:Name="RecordsView" Grid.Row="1"
+                      SelectionMode="Single" SelectionChanged="SelectionChanged">
+        <CollectionView.ItemTemplate>
+          <DataTemplate x:DataType="models:MaintenanceRecord">
+            <Border Margin="0,0,0,8" Padding="12" BackgroundColor="White"
+                    Stroke="#DCE3DF" StrokeShape="RoundRectangle 10">
+              <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+                <Label Grid.Column="1" Text="{Binding StatusDisplay}" TextColor="{StaticResource Teal}" />
+                <Label Grid.Row="1" Text="{Binding Location}" TextColor="{StaticResource Muted}" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding UpdatedDisplay}"
+                       TextColor="{StaticResource Muted}" FontSize="11" />
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+
+      <ScrollView Grid.Row="2">
+        <Border Padding="18" BackgroundColor="White" Stroke="#DCE3DF" StrokeShape="RoundRectangle 14">
+          <VerticalStackLayout Spacing="10">
+            <Label x:Name="EditorHeading" Text="New maintenance item" FontSize="22" FontAttributes="Bold" />
+            <Entry x:Name="TitleEntry" Placeholder="Task title" />
+            <Entry x:Name="LocationEntry" Placeholder="Location" />
+            <Editor x:Name="NotesEditor" Placeholder="Notes" HeightRequest="110" />
+            <HorizontalStackLayout Spacing="8">
+              <Switch x:Name="CompleteSwitch" />
+              <Label Text="Completed" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+              <Label x:Name="StatusLabel" Text="Ready" TextColor="{StaticResource Muted}"
+                     VerticalOptions="Center" />
+              <Button x:Name="DeleteButton" Grid.Column="1" Text="Delete" IsVisible="False"
+                      Clicked="DeleteClicked" />
+              <Button Grid.Column="2" Text="Save" Style="{StaticResource PrimaryButton}"
+                      Clicked="SaveClicked" />
+            </Grid>
+          </VerticalStackLayout>
+        </Border>
+      </ScrollView>
+    </Grid>
+  </Grid>
+</ContentPage>
+

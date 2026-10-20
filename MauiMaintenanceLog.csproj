@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SQLiteEncrypted.MauiMaintenanceLog</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ApplicationTitle>Encrypted Maintenance Log</ApplicationTitle>
+    <ApplicationId>org.sqlite.encrypted.samples.maintenance</ApplicationId>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#12372F" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#F6F3EA" BaseSize="128,128" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.20" />
+    <PackageReference Include="SQLite.Encrypted" Version="3.54.0" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="3.0.3" />
+    <PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="3.0.3" />
+  </ItemGroup>
+</Project>
+

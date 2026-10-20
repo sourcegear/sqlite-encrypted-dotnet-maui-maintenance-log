@@ -15,8 +15,8 @@ selects the `e_sqlite3` binary supplied by `SQLite.Encrypted`.
 - .NET 10 SDK with the MAUI Android and/or iOS workload
 - a SQLite.Encrypted activation key valid for the device platform and SQLite 3.54
 
-Request an evaluation activation key at
-[sqlite.sourcegear.com/#evaluation](http://sqlite.sourcegear.com/#evaluation).
+Free fully-featured demo keys are available from
+[sqlite.sourcegear.com](https://sqlite.sourcegear.com/#evaluation).
 
 ## Run on Android
 
